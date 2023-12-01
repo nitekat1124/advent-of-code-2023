@@ -22,9 +22,5 @@ class Solution(SolutionBase):
             "nine": "9",
         }
 
-        _sum = 0
-        for line in data:
-            line_new = [x if (x := "".join([v for k, v in mappings.items() if line[i:].startswith(k)])) else line[i] for i in range(len(line))]
-            digits = [int(i) for i in line_new if i.isdigit()]
-            _sum += digits[0] * 10 + digits[-1]
-        return _sum
+        new_data = [[x if (x := "".join([v for k, v in mappings.items() if line[i:].startswith(k)])) else line[i] for i in range(len(line))] for line in data]
+        return self.part1(new_data)
