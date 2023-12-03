@@ -44,12 +44,11 @@ class Solution(SolutionBase):
                 offset = pos + len(n)
                 idx_num += 1
 
-            line3 = re.sub(r"[\d\.]", " ", line)
-            y = line3.split()
+            line_syms = re.sub(r"[\d\.]", " ", line).split()
             offset = 0
-            for n in y:
-                pos = line.index(n, offset)
-                syms[(r, pos)] = n
-                offset = pos + len(n)
+            for sym in line_syms:
+                pos = line.index(sym, offset)
+                syms[(r, pos)] = sym
+                offset = pos + 1
 
         return nums, syms
