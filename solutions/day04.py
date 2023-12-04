@@ -11,13 +11,10 @@ class Solution(SolutionBase):
             winning, yours = line.split(":")[1].split("|")
             winning = set(winning.split())
             yours = set(yours.split())
-            """
 
-            """
             # simplified using map:
             winning, yours = map(lambda nums: set(nums.split()), line.split(":")[1].split("|"))
             """
-
             # more simplified:
             winning, yours = map(set, map(str.split, line.split(":")[1].split("|")))
 
@@ -27,7 +24,6 @@ class Solution(SolutionBase):
             if matched_count > 0:
                 points += 2 ** (matched_count - 1)
             """
-
             # simplified:
             points += int(2 ** (len(winning & yours) - 1))
 
