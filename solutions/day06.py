@@ -65,7 +65,6 @@ class Solution(SolutionBase):
         # 1. find the highest number, which is floor((time/2)^2)
         # 2. if time is even, there will be only 1 highest number, and the decrease steps are 1, 3, 5, 7, 9, ...
         # 3. if time is odd, there will be 2 highest numbers, and the decrease steps are 2, 4, 6, 8, 10, ...
-        """
         curr = _time**2 // 4  # the middle, is the highest record you can get
         step = 2 if _time % 2 else 1
         count = 0
@@ -75,5 +74,39 @@ class Solution(SolutionBase):
             curr -= step
             step += 2
         count = count * 2 - (1 - _time % 2)  # there is only one middle number if _time is even
+        """
+
+        """
+        # approach 4, benchmark: 6.62 µs
+        # based on the approach 3
+        # for the decreasing steps of 1, 3, 5, 7, 9, etc...
+        # each number's difference from the highest number is 1, 4, 9, 16, 25
+        # which corresponds to n^2
+        #
+        # and for the decreasing steps of 2, 4, 6, 8, 10, etc...
+        # each number's difference from the highest number is 2, 6, 12, 20, 30
+        # which corresponds to n^2+n
+        #
+        # so we can use this pattern to determine the number of steps needed to find the lowest number that still breaks the record
+        # The number of steps is calculated as (highest - record)^0.5 when time is even
+        # a slight adjustment is needed when the time is odd
+        #
+        # finally we double the steps and add the count of the highest number (1 for even time and 2 for odd time) to get the final answer
+        """
+        curr = _time**2 // 4
+        diff = curr - _dist
+        steps = diff**0.5
+        if steps.is_integer():
+            steps -= 1
+        steps = int(steps)
+
+        # because of the difference is n^2+n when _time is odd
+        # and we are using square root to calculate the steps
+        # so steps need to be adjust
+        if _time % 2:
+            while steps**2 + steps >= diff:
+                steps -= 1
+
+        count = steps * 2 + (2 if _time % 2 else 1)
 
         return count
