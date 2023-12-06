@@ -27,7 +27,7 @@ class Solution(SolutionBase):
 
         """
         # approach 2, benchmark: 1.84 s
-        # act like approach but only count in half range
+        # act like approach 1 but only count in half range
         mid = _time // 2
         times = 1 + _time % 2
         count = sum((i * (_time - i) > _dist) for i in range(mid - 1, 0, -1)) * 2
