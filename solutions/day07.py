@@ -46,20 +46,9 @@ class Solution(SolutionBase):
         for card in cards:
             counter[card] = cards.count(card)
 
-        if 5 in counter.values() or jokers == 5:
-            rank_score = 50
-        elif 4 in counter.values():
-            rank_score = 10 * (4 + jokers)
-        elif 3 in counter.values() and 2 in counter.values():
-            rank_score = 32
-        elif 3 in counter.values():
-            rank_score = 10 * (3 + jokers)
-        elif 2 in counter.values() and list(counter.values()).count(2) == 2:
-            rank_score = 22 + 10 * jokers
-        elif 2 in counter.values():
-            rank_score = 10 * (2 + jokers)
-        else:
-            rank_score = 10 * (1 + jokers)
+        _max, _2nd = (sorted(counter.values(), reverse=True) + [0] * 5)[:2]
+        rank_score = 10 * (_max + jokers) + _2nd
+        rank_score = max(i for i in types.keys() if i <= rank_score)
 
         # using rank_score as the part of the key to sort the hands
         # and types[rank_score] for the debug purpose
