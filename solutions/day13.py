@@ -23,7 +23,7 @@ class Solution(SolutionBase):
         for pattern, weight in ((_map_h, 100), (_map_v, 1)):
             for i in range(1, len(pattern)):
                 a, b = pattern[:i], pattern[i:]
-                a = "".join([x for x in a[::-1]])
+                a = "".join(a[::-1])
                 b = "".join(b)
                 if sum(x != y for x, y in zip(a, b)) == diff:
                     return i * weight
@@ -68,7 +68,7 @@ class Solution(SolutionBase):
         for pattern, weight in ((_map_h, 100), (_map_v, 1)):
             for i in range(1, len(pattern)):
                 a, b = pattern[:i], pattern[i:]
-                a = "".join([x for x in a[::-1]])
+                a = "".join(a[::-1])
                 b = "".join(b)
                 if a.startswith(b) or b.startswith(a):
                     ref = i * weight
