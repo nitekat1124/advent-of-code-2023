@@ -35,7 +35,7 @@ class Solution(SolutionBase):
 
         return self.count_total_load()
 
-    def tilt(self):
+    def tilt_org(self):
         for i in range(1, len(self._map)):
             for x, c in enumerate(self._map[i]):
                 if c == "O":
@@ -48,6 +48,15 @@ class Solution(SolutionBase):
                             prev_y = y
                         elif col[y] == "#":
                             break
+
+    def tilt(self):
+        cols = zip(*self._map)
+        cols_tilted = []
+        for col in cols:
+            parts = "".join(col).split("#")
+            parts_tilted = [("O" * t.count("O")).ljust(len(t), ".") for t in parts]
+            cols_tilted.append("#".join(parts_tilted))
+        self._map = [list(x) for x in zip(*cols_tilted)]
 
     def turn(self):
         self._map = [list(x)[::-1] for x in zip(*self._map)]
