@@ -35,6 +35,8 @@ class Solution(SolutionBase):
 
         return self.count_total_load()
 
+    # this is the original version, which is inefficient
+    # start from the second line, check if there is O, if so, move up and find an empty space until you meet #
     def tilt_org(self):
         for i in range(1, len(self._map)):
             for x, c in enumerate(self._map[i]):
@@ -49,6 +51,7 @@ class Solution(SolutionBase):
                         elif col[y] == "#":
                             break
 
+    # for each column, split by #, move all O to the front, and fill the rest with .
     def tilt(self):
         cols = zip(*self._map)
         cols_tilted = []
@@ -58,6 +61,7 @@ class Solution(SolutionBase):
             cols_tilted.append("#".join(parts_tilted))
         self._map = [list(x) for x in zip(*cols_tilted)]
 
+    # turn clockwise 90 degree
     def turn(self):
         self._map = [list(x)[::-1] for x in zip(*self._map)]
 
