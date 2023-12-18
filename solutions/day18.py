@@ -55,6 +55,13 @@ class Solution(SolutionBase):
 
         https://en.wikipedia.org/wiki/Shoelace_formula
         https://en.wikipedia.org/wiki/Pick%27s_theorem
+
+        1. calc the internal area using the shoelace formula (denote this as A)
+        2. according to pick's theorem, A = i(number of internal points) + b(number of boundary points)/2 - 1
+        3. so the number of internal points i = A - b/2 + 1
+        4. then the total area = i + b
+                               = A - b/2 + 1 + b
+                               = A + b/2 + 1
         """
         r = 0
         for i in range(len(points) - 1):
