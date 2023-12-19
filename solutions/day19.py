@@ -63,10 +63,10 @@ class Solution(SolutionBase):
             flows[name] = rule
 
         parts = {
-            "x": [(1, 4000)],
-            "m": [(1, 4000)],
-            "a": [(1, 4000)],
-            "s": [(1, 4000)],
+            "x": {(1, 4000)},
+            "m": {(1, 4000)},
+            "a": {(1, 4000)},
+            "s": {(1, 4000)},
         }
 
         n = 0
@@ -93,34 +93,31 @@ class Solution(SolutionBase):
             if ":" in rule:
                 condition, _next = rule.split(":")
                 cate, value = condition[0], int(condition[2:])
+                need_del = set()
+                need_add = set()
                 if condition[1] == "<":
-                    need_del = []
-                    need_add = []
                     for item in parts[cate]:
                         if item[1] < value:
-                            rets.append({"next": _next, "parts": {**parts, cate: [item]}})
-                            need_del.append(item)
+                            """
+                            use union on dict
+                            thanks to asavar https://www.reddit.com/r/adventofcode/comments/18ltr8m/comment/ke1isb7/
+                            """
+                            rets.append({"next": _next, "parts": parts | {cate: {item}}})
+                            need_del.add(item)
                         if item[0] < value <= item[1]:
-                            rets.append({"next": _next, "parts": {**parts, cate: [(item[0], value - 1)]}})
-                            need_del.append(item)
-                            need_add.append((value, item[1]))
-                    temp = {k: [item for item in v if k != cate or (k == cate and item not in need_del)] for k, v in parts.items()}
-                    temp[cate] += need_add
-                    parts = temp
+                            rets.append({"next": _next, "parts": parts | {cate: {(item[0], value - 1)}}})
+                            need_del.add(item)
+                            need_add.add((value, item[1]))
                 else:  # condition[1] == ">"
-                    need_del = []
-                    need_add = []
                     for item in parts[cate]:
                         if item[0] > value:
-                            rets.append({"next": _next, "parts": {**parts, cate: [item]}})
-                            need_del.append(item)
+                            rets.append({"next": _next, "parts": parts | {cate: {item}}})
+                            need_del.add(item)
                         if item[1] > value >= item[0]:
-                            rets.append({"next": _next, "parts": {**parts, cate: [(value + 1, item[1])]}})
-                            need_del.append(item)
-                            need_add.append((item[0], value))
-                    temp = {k: [item for item in v if k != cate or (k == cate and item not in need_del)] for k, v in parts.items()}
-                    temp[cate] += need_add
-                    parts = temp
+                            rets.append({"next": _next, "parts": parts | {cate: {(value + 1, item[1])}}})
+                            need_del.add(item)
+                            need_add.add((item[0], value))
+                parts[cate] = parts[cate] - need_del | need_add
             else:
                 rets.append({"next": rule, "parts": parts})
 
