@@ -38,10 +38,10 @@ class Solution(SolutionBase):
            by (2), we found out the step from one edge to another edge is also 131
            that means there are 202300 extend maps in each direction for the original map
            forming a big diamond shape
-        3. count the number of completely reached maps and the edge/corner map in that big diamond
-        4. determine how many plot is reached in the completely reached map, considering whether the step count is odd or even
-        5. determine how many plot is reached in the edge/corner map
-        6. sum these up
+        4. count the number of completely reached maps and the edge/corner map in that big diamond
+        5. determine how many plot is reached in the completely reached map, considering whether the step count is odd or even
+        6. determine how many plot is reached in the edge/corner map
+        7. sum these up
         """
         _map = []
         start = None
