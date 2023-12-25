@@ -70,8 +70,11 @@ class Solution(SolutionBase):
         https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
         https://www.reddit.com/r/adventofcode/comments/18pnycy/comment/kepu26z/
 
-        but I don't know how to use the above yet, dang
-        use z3 for now, try to learn the above later
+        tried to find a solution without using third party libraries but failed
+        use the z3 solver to solve the equations for now
+
+        after solved the part 2 I found the refs above but still try to understand them
+        may implement them later
         """
         hails = []
         for line in data:
