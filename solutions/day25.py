@@ -11,6 +11,12 @@ class Solution(SolutionBase):
             for cmp in cmps.split():
                 g.add_edge(name, cmp)
 
+        """
+        # you can draw the graph to see the whole structure
+        nx.draw(g, with_labels=True)
+        plt.show()
+        """
+
         cuts = nx.minimum_edge_cut(g)
         g.remove_edges_from(cuts)
         groups = nx.connected_components(g)
